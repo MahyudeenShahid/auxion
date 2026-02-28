@@ -1,14 +1,28 @@
 @import "tailwindcss";
 
 @theme inline {
+  /* Colors aligned with lib/theme.ts */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-text-muted: var(--text-muted);
+
+  /* Fonts & Animations */
   --font-sans: var(--font-outfit);
+  --animate-spin-slow: spin 8s linear infinite;
+
+  /* Standard GSAP/Framer easing explicitly exposed */
+  --ease-awwwards: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 :root {
+  /* Core Colors */
   --background: #050505;
-  --foreground: #f0f0f0;
+  --foreground: #ffffff;
+  --primary: #00FF88;
+  --primary-hover: #00cc6d;
+  --text-muted: #a3a3a3;
 }
 
 body {
@@ -32,4 +46,3 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
