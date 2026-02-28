@@ -70,126 +70,137 @@ export const WebPlatformVisual = () => {
     );
 };
 
-// OPTION 1: The Monolithic Core
-export const SaaSVisualOption1 = () => {
-    return (
-        <div className="relative w-full h-full min-h-[250px] flex items-center justify-center -translate-y-4">
-            <h4 className="absolute top-0 text-[10px] text-gray-500 font-mono tracking-widest">OPTION 1: MONOLITH</h4>
-            <div className="relative z-10">
-                <motion.div
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-32 h-48 bg-black border border-white/20 rounded-md relative shadow-[0_0_50px_rgba(255,255,255,0.05)] overflow-hidden flex flex-col justify-between p-4"
-                >
-                    {/* Server Rack Slots */}
-                    {Array.from({ length: 5 }).map((_, i) => (
-                        <div key={i} className="w-full h-4 border border-white/10 rounded-sm relative flex items-center px-2 gap-2">
-                            <motion.div
-                                className="w-1.5 h-1.5 rounded-full bg-[#00FF88]"
-                                animate={{ opacity: [1, 0.2, 1] }}
-                                transition={{ duration: 0.5 + Math.random(), repeat: Infinity, delay: Math.random() }}
-                            />
-                            <div className="h-0.5 bg-white/10 flex-grow" />
-                        </div>
-                    ))}
+export const SaaSVisual = () => {
+    // Generate static nodes for the SaaS ecosystem (Microservices architecture)
+    const centralNode = { x: 200, y: 125, r: 15 };
 
-                    {/* Scanning Laser */}
-                    <motion.div
-                        className="absolute left-0 right-0 h-1 bg-[#00FF88]/50 shadow-[0_0_10px_#00FF88]"
-                        initial={{ top: 0, opacity: 0 }}
-                        animate={{ top: "100%", opacity: [0, 1, 1, 0] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                    />
-                </motion.div>
-            </div>
-            {/* Base Reflection */}
+    // Orbital API/Service nodes
+    const serviceNodes = [
+        { x: 100, y: 60, r: 8, delay: 0 },
+        { x: 300, y: 60, r: 8, delay: 0.5 },
+        { x: 80, y: 190, r: 8, delay: 1.2 },
+        { x: 320, y: 190, r: 8, delay: 0.8 },
+        { x: 60, y: 125, r: 5, delay: 1.5 },
+        { x: 340, y: 125, r: 5, delay: 0.3 }
+    ];
+
+    return (
+        <div className="relative w-full h-full min-h-[200px] md:min-h-[250px] flex items-center justify-center overflow-visible scale-75 md:scale-100">
+            {/* Ambient Background glow representing cloud infrastructure */}
             <motion.div
-                animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-12 w-32 h-8 bg-white/20 blur-xl rounded-[100%]"
+                animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.2, 0.1] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute w-56 h-56 bg-white blur-[100px] rounded-full z-0"
             />
-        </div>
-    );
-};
 
-// OPTION 2: Interlocking Orbital Rings (Ecosystem)
-export const SaaSVisualOption2 = () => {
-    return (
-        <div className="relative w-full h-full min-h-[250px] flex items-center justify-center overflow-visible">
-            <h4 className="absolute top-0 text-[10px] text-gray-500 font-mono tracking-widest">OPTION 2: ORBITAL</h4>
-            <div className="relative w-[200px] h-[200px] flex items-center justify-center translate-y-4">
-                {/* Core Axis */}
-                <div className="absolute w-4 h-4 bg-white rounded-full shadow-[0_0_20px_white]" />
-
-                {/* Ring 1 - X/Y Axis */}
-                <motion.div
-                    animate={{ rotateX: 360, rotateY: 180 }}
-                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                    className="absolute w-full h-full rounded-full border border-[#00FF88]/40 border-t-[#00FF88] border-b-[#00FF88] shadow-[inset_0_0_20px_rgba(0,255,136,0.1)]"
-                    style={{ transformStyle: 'preserve-3d' }}
-                />
-
-                {/* Ring 2 - Z Axis Offset */}
-                <motion.div
-                    animate={{ rotateY: 360, rotateZ: 90 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute w-[80%] h-[80%] rounded-full border-2 border-white/20 border-l-white border-r-white"
-                    style={{ transformStyle: 'preserve-3d' }}
-                />
-
-                {/* Ring 3 - Diagonal */}
-                <motion.div
-                    animate={{ rotateZ: -360, rotateX: 180 }}
-                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                    className="absolute w-[120%] h-[120%] rounded-full border border-gray-600/50 border-t-white/50"
-                    style={{ transformStyle: 'preserve-3d' }}
-                />
-            </div>
-        </div>
-    );
-};
-
-// OPTION 3: High-Speed Data Pipeline
-export const SaaSVisualOption3 = () => {
-    return (
-        <div className="relative w-full h-full min-h-[250px] flex items-center justify-center overflow-hidden">
-            <h4 className="absolute top-0 text-[10px] text-gray-500 font-mono tracking-widest z-20">OPTION 3: PIPELINE</h4>
-            <div className="w-[300px] h-[150px] relative flex flex-col justify-between translate-y-4">
-                {/* Render multiple data streams */}
-                {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="w-full h-[1px] bg-white/10 relative overflow-hidden">
-                        <motion.div
-                            className="absolute max-w-[50px] h-full shadow-[0_0_10px_currentColor]"
-                            style={{
-                                left: "-50px",
-                                backgroundColor: i % 2 === 0 ? "#00FF88" : "#ffffff",
-                                color: i % 2 === 0 ? "#00FF88" : "#ffffff",
-                                width: `${Math.random() * 40 + 10}px`
+            <motion.svg
+                viewBox="0 0 400 250"
+                className="w-full h-full max-w-[500px] relative z-10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                {/* Connection Lines (Pipelines) */}
+                {serviceNodes.map((node, i) => (
+                    <g key={`line-${i}`}>
+                        {/* Base Line */}
+                        <path
+                            d={`M ${centralNode.x} ${centralNode.y} L ${node.x} ${node.y}`}
+                            stroke="rgba(255,255,255,0.1)"
+                            strokeWidth="1"
+                        />
+                        {/* Data Packet moving along the pipeline */}
+                        <motion.circle
+                            r="2"
+                            fill="#ffffff"
+                            initial={{ cx: node.x, cy: node.y, opacity: 0 }}
+                            animate={{
+                                cx: centralNode.x,
+                                cy: centralNode.y,
+                                opacity: [0, 1, 1, 0]
                             }}
-                            animate={{ left: "120%" }}
                             transition={{
-                                duration: Math.random() * 1.5 + 0.5,
+                                duration: 1.5 + Math.random(),
                                 repeat: Infinity,
-                                delay: Math.random() * 2,
+                                delay: node.delay,
                                 ease: "linear"
                             }}
+                            style={{ filter: "drop-shadow(0 0 4px #ffffff)" }}
                         />
-                    </div>
+                        <motion.circle
+                            r="1.5"
+                            fill="#00FF88"
+                            initial={{ cx: centralNode.x, cy: centralNode.y, opacity: 0 }}
+                            animate={{
+                                cx: node.x,
+                                cy: node.y,
+                                opacity: [0, 1, 1, 0]
+                            }}
+                            transition={{
+                                duration: 1.2 + Math.random(),
+                                repeat: Infinity,
+                                delay: node.delay + 0.5,
+                                ease: "linear"
+                            }}
+                            style={{ filter: "drop-shadow(0 0 4px #00FF88)" }}
+                        />
+                    </g>
                 ))}
-            </div>
-            {/* Central Processing Node Background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00FF88]/5 to-transparent pointer-events-none" />
-        </div>
-    );
-};
 
-// Temporary wrapper to show all 3 so user can pick
-export const SaaSVisual = () => {
-    return (
-        <div className="w-full h-full flex flex-col md:flex-row items-center justify-center gap-4 bg-black/40 backdrop-blur-md p-4 rounded-xl border border-white/10">
-            <div className="flex-1 w-full h-[250px] border border-white/5 bg-[#050505] rounded-xl relative overflow-hidden flex items-center justify-center scale-75 transform origin-center pb-8"><SaaSVisualOption1 /></div>
-            <div className="flex-1 w-full h-[250px] border border-white/5 bg-[#050505] rounded-xl relative overflow-hidden flex items-center justify-center scale-75 transform origin-center pb-4"><SaaSVisualOption2 /></div>
-            <div className="flex-1 w-full h-[250px] border border-white/5 bg-[#050505] rounded-xl relative overflow-hidden flex items-center justify-center scale-75 transform origin-center pb-4"><SaaSVisualOption3 /></div>
+                {/* Outer Connecting Ring (Ecosystem Boundary) */}
+                <motion.ellipse
+                    cx="200" cy="125" rx="140" ry="80"
+                    stroke="rgba(255,255,255,0.05)"
+                    strokeWidth="1"
+                    strokeDasharray="4 8"
+                    animate={{ rotateZ: 360 }}
+                    transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                    style={{ transformOrigin: "200px 125px" }}
+                />
+
+                {/* Service Nodes (Microservices/Databases) */}
+                {serviceNodes.map((node, i) => (
+                    <motion.g key={`node-${i}`}
+                        animate={{ y: [0, -5, 0] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: node.delay, ease: "easeInOut" }}
+                    >
+                        {/* Outer server halo */}
+                        <circle cx={node.x} cy={node.y} r={node.r + 4} stroke="rgba(255,255,255,0.2)" strokeWidth="1" fill="transparent" />
+                        {/* Inner server core */}
+                        <circle cx={node.x} cy={node.y} r={node.r} fill="rgba(0,0,0,0.8)" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+                        <motion.circle
+                            cx={node.x} cy={node.y} r={node.r - 2} fill={i % 2 === 0 ? "#00FF88" : "#ffffff"}
+                            animate={{ opacity: [0.2, 1, 0.2] }}
+                            transition={{ duration: 1 + Math.random(), repeat: Infinity, delay: node.delay }}
+                        />
+                    </motion.g>
+                ))}
+
+                {/* Central Monolithic Core (DB / Main Server) */}
+                <motion.g
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                >
+                    {/* Glowing Aura */}
+                    <circle cx={centralNode.x} cy={centralNode.y} r={centralNode.r + 15} fill="rgba(255,255,255,0.05)" />
+                    <circle cx={centralNode.x} cy={centralNode.y} r={centralNode.r + 8} stroke="rgba(255,255,255,0.3)" strokeWidth="1" strokeDasharray="2 4" fill="transparent" />
+
+                    {/* Solid Core Structure */}
+                    <polygon
+                        points="200,105 218,115 218,135 200,145 182,135 182,115"
+                        fill="rgba(0,0,0,0.9)"
+                        stroke="white"
+                        strokeWidth="1.5"
+                    />
+
+                    {/* Inner Pulse */}
+                    <motion.circle
+                        cx={centralNode.x} cy={centralNode.y} r="4" fill="#ffffff"
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                        style={{ filter: "drop-shadow(0 0 10px #ffffff)" }}
+                    />
+                </motion.g>
+            </motion.svg>
         </div>
     );
 };
