@@ -8,10 +8,11 @@ import { ArrowUpRight } from "lucide-react";
 
 const navLinks = [
     { name: "Index", href: "/" },
-    { name: "Expertise", href: "#services" },
-    { name: "Showcase", href: "#work" },
-    { name: "Studio", href: "#about" },
-    { name: "Connect", href: "#contact" },
+    { name: "Services", href: "/services" },
+    { name: "Work", href: "/work" },
+    { name: "Studio", href: "/about" },
+    { name: "Journal", href: "/blog" },
+    { name: "Connect", href: "/contact" },
 ];
 
 const menuVariants = {
