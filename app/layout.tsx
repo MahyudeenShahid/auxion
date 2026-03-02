@@ -5,6 +5,8 @@ import { Footer } from "@/components/layout/Footer";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { FluidGradientBackground } from "@/components/ui/FluidGradientBackground";
 import { InitialLoader } from "@/components/ui/InitialLoader";
+import { LoaderProvider } from "@/components/context/LoaderContext";
+import { PageTransition } from "@/components/layout/PageTransition";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -27,14 +29,18 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} antialiased selection:bg-white/10`}
       >
-        <InitialLoader />
-        <FluidGradientBackground />
-        <CustomCursor />
-        <Navbar />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+        <LoaderProvider>
+          <InitialLoader />
+          <FluidGradientBackground />
+          <CustomCursor />
+          <Navbar />
+          <PageTransition>
+            <main className="min-h-screen">
+              {children}
+            </main>
+          </PageTransition>
+          <Footer />
+        </LoaderProvider>
       </body>
     </html>
   );

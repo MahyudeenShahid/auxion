@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const testimonials = [
     {
@@ -141,6 +142,22 @@ export const Testimonials = () => {
                         </AnimatePresence>
 
                     </div>
+                </div>
+
+                {/* Call to Trust Link */}
+                <div className="mt-16 md:mt-24 lg:mt-32 w-full flex justify-center border-t border-white/10 pt-16 md:pt-24 relative z-20">
+                    <Link
+                        href="/contact"
+                        className="group flex flex-col items-center gap-6"
+                    >
+                        <p className="font-mono text-sm tracking-widest uppercase text-gray-500 group-hover:text-white transition-colors duration-300">
+                            Join the Registry
+                        </p>
+                        <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white group-hover:text-[#00FF88] transition-colors duration-300 flex items-center gap-4">
+                            Start Dialogue
+                            <span className="text-[#00FF88] opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">{`->`}</span>
+                        </h2>
+                    </Link>
                 </div>
 
             </div>

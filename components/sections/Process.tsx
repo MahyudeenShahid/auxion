@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, useInView } from "framer-motion";
+import Link from "next/link";
 
 const processSteps = [
     {
@@ -81,10 +82,10 @@ export const Process = () => {
                             <div
                                 key={`num-${step.num}`}
                                 className={`absolute bottom-0 left-0 transition-all duration-[1.2s] ease-[cubic-bezier(0.87,0,0.13,1)] ${activeStep === idx
-                                        ? "translate-y-0 opacity-100"
-                                        : activeStep > idx
-                                            ? "-translate-y-full opacity-0"
-                                            : "translate-y-full opacity-0"
+                                    ? "translate-y-0 opacity-100"
+                                    : activeStep > idx
+                                        ? "-translate-y-full opacity-0"
+                                        : "translate-y-full opacity-0"
                                     }`}
                             >
                                 <span className="text-[12rem] lg:text-[20rem] font-black leading-none text-transparent [-webkit-text-stroke:2px_rgba(255,255,255,0.1)] block mb-[-2rem] lg:mb-[-4rem]">
@@ -130,10 +131,10 @@ export const Process = () => {
                                 <div
                                     key={`text-${step.num}`}
                                     className={`absolute left-0 w-full px-16 md:px-32 lg:px-48 transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive
-                                            ? "opacity-100 translate-y-0 scale-100 blur-0"
-                                            : isPast
-                                                ? "opacity-0 -translate-y-[20vh] scale-95 blur-md"
-                                                : "opacity-0 translate-y-[20vh] scale-95 blur-md"
+                                        ? "opacity-100 translate-y-0 scale-100 blur-0"
+                                        : isPast
+                                            ? "opacity-0 -translate-y-[20vh] scale-95 blur-md"
+                                            : "opacity-0 translate-y-[20vh] scale-95 blur-md"
                                         }`}
                                 >
 
@@ -164,6 +165,19 @@ export const Process = () => {
                     </div>
                 </div>
 
+            </div>
+
+            {/* Buffer space after sticky section ends */}
+            <div className="relative w-full h-[30vh] flex items-center justify-center bg-[#020202] z-20 border-t border-white/5">
+                <Link
+                    href="/contact"
+                    className="group relative inline-flex items-center gap-3 px-10 py-5 bg-transparent border border-white/20 hover:border-[#00FF88] rounded-full overflow-hidden transition-all duration-300 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+                >
+                    <div className="absolute inset-0 bg-[#00FF88]/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300" />
+                    <span className="relative font-mono text-sm tracking-widest uppercase text-white group-hover:text-[#00FF88] transition-colors duration-300 font-bold">
+                        Start Implementation
+                    </span>
+                </Link>
             </div>
         </section>
     );

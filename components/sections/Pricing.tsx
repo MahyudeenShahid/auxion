@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import Link from "next/link";
 
 const plans = [
     {
@@ -182,15 +183,15 @@ const TierCard = ({ plan }: { plan: typeof plans[0] }) => {
                         </ul>
                     </div>
 
-                    <button className={`w-full py-4 rounded-full font-mono text-xs tracking-[0.3em] uppercase transition-all duration-300 relative overflow-hidden group/btn ${isGreen
-                            ? 'bg-[#00FF88] text-black hover:bg-white'
-                            : 'border border-white/20 hover:border-white hover:bg-white hover:text-black'
+                    <Link href="/contact" className={`w-full py-4 rounded-full font-mono text-xs tracking-[0.3em] uppercase transition-all duration-300 relative overflow-hidden group/btn flex items-center justify-center ${isGreen
+                        ? 'bg-[#00FF88] text-black hover:bg-white'
+                        : 'border border-white/20 hover:border-white hover:bg-white hover:text-black'
                         }`}>
                         <span className="relative z-10 flex items-center justify-center gap-2">
                             {plan.cta}
                             <span className="group-hover/btn:translate-x-1 transition-transform">-&gt;</span>
                         </span>
-                    </button>
+                    </Link>
                 </div>
 
                 {/* Decorative Tech Borders */}

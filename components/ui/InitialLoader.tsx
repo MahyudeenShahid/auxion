@@ -1,18 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLoader } from "../context/LoaderContext";
 
 export const InitialLoader = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    const { isLoading, setIsLoading } = useLoader();
     const [progress, setProgress] = useState(0);
+    const isFirstMount = useRef(true);
 
     useEffect(() => {
+        if (!isLoading) return;
         // Lock scrolling during the sequence
         document.body.style.overflow = "hidden";
 
-        const duration = 2800; // Total load time (slightly longer for premium feel)
+        const duration = isFirstMount.current ? 2800 : 1200; // Faster on subsequent loads
         let startTimestamp: number | null = null;
+        let animationFrame: number;
 
         // Custom easing: perfectly smooth acceleration and deceleration
         const easeInOutQuart = (x: number): number => {
@@ -29,7 +33,7 @@ export const InitialLoader = () => {
             setProgress(easedProgress * 100); // Keep float for smooth CSS clipping
 
             if (linearProgress < 1) {
-                window.requestAnimationFrame(step);
+                animationFrame = window.requestAnimationFrame(step);
             } else {
                 // Short hold at 100% to let the user absorb the fully lit logo
                 setTimeout(() => {
@@ -37,17 +41,19 @@ export const InitialLoader = () => {
                     // Unlock scrolling slightly after the doors start opening
                     setTimeout(() => {
                         document.body.style.overflow = "";
+                        isFirstMount.current = false;
                     }, 800);
-                }, 600);
+                }, isFirstMount.current ? 600 : 200);
             }
         };
 
-        window.requestAnimationFrame(step);
+        animationFrame = window.requestAnimationFrame(step);
 
         return () => {
+            if (animationFrame) window.cancelAnimationFrame(animationFrame);
             document.body.style.overflow = "";
         };
-    }, []);
+    }, [isLoading, setIsLoading]);
 
     // The shared typography styling for the massive logo
     const typographyClasses = "font-black text-[25vw] leading-[0.75] tracking-tighter uppercase select-none";

@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import Link from "next/link";
 
 const projects = [
     {
@@ -181,7 +182,17 @@ export const CaseStudies = () => {
             </div>
 
             {/* Buffer space after the last sticky element allows the normal document flow to resume */}
-            <div className="h-[20vh] w-full bg-[#020202] relative z-20" />
+            <div className="h-[20vh] w-full bg-[#020202] relative z-20 flex items-center justify-center">
+                <Link
+                    href="/work"
+                    className="group relative inline-flex items-center gap-3 px-10 py-5 bg-transparent border border-[#00FF88]/30 hover:border-[#00FF88] rounded-full overflow-hidden transition-all duration-300"
+                >
+                    <div className="absolute inset-0 bg-[#00FF88]/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300" />
+                    <span className="relative font-mono text-sm tracking-widest uppercase text-white group-hover:text-[#00FF88] transition-colors duration-300">
+                        Explore All Work
+                    </span>
+                </Link>
+            </div>
 
         </section>
     );

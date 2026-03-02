@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView, animate } from "framer-motion";
+import Link from "next/link";
 
 // --- MICRO-INTERACTION COMPONENTS --- //
 
@@ -62,7 +63,18 @@ export const About = () => {
     });
 
     // Translate the cards horizontally based on vertical scroll
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.66%"]);
+    // Delay the translation until scrollYProgress is 0.3, so the section stays pinned without card movement initially.
+    const x = useTransform(
+        scrollYProgress,
+        [0, 0.3, 0.45, 0.75, 0.9, 1],
+        ["0%", "0%", "-33.33%", "-33.33%", "-66.66%", "-66.66%"]
+    );
+
+    // Staggered Opacities tied directly to the scroll progress so they stay visible
+    // First card opacity is visible immediately so it can sit fixed while counting up
+    const card1Opacity = useTransform(scrollYProgress, [0, 0.1], [1, 1]);
+    const card2Opacity = useTransform(scrollYProgress, [0.35, 0.45], [0, 1]);
+    const card3Opacity = useTransform(scrollYProgress, [0.8, 0.9], [0, 1]);
 
     // Background text slow parallax
     const bgY = useTransform(scrollYProgress, [0, 1], [0, 200]);
@@ -142,7 +154,10 @@ export const About = () => {
                             >
 
                                 {/* CARD 1: SCALE */}
-                                <div className="w-1/3 h-full bg-[#050505] border border-white/10 rounded-2xl p-12 md:p-16 flex flex-col justify-between relative group overflow-hidden">
+                                <motion.div
+                                    style={{ opacity: card1Opacity }}
+                                    className="w-1/3 h-full bg-[#050505] border border-white/10 rounded-2xl p-12 md:p-16 flex flex-col justify-between relative group overflow-hidden"
+                                >
                                     {/* Parallax Image Mask */}
                                     <div className="absolute inset-0 z-0 overflow-hidden">
                                         <div className="absolute inset-0 bg-black/60 z-10" />
@@ -164,16 +179,19 @@ export const About = () => {
                                         <div className="text-7xl md:text-9xl font-black text-white flex items-center gap-2 drop-shadow-2xl">
                                             <Counter to={40} duration={2} /><span className="text-[#00FF88] text-6xl group-hover:scale-110 origin-left transition-transform duration-500">+</span>
                                         </div>
-                                        {/* Hover Button */}
-                                        <div className="hidden lg:flex items-center gap-2 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-100 cursor-pointer">
-                                            <span className="font-mono text-sm tracking-widest uppercase text-white">Explore</span>
-                                            <span className="text-[#00FF88]">{`->`}</span>
-                                        </div>
+                                        {/* Redesigned Floating Button */}
+                                        <Link href="/about" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00FF88] rounded-full flex flex-col items-center justify-center text-black font-black uppercase tracking-widest text-sm opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-30 shadow-[0_0_50px_rgba(0,255,136,0.3)] hover:scale-110">
+                                            <span>See More</span>
+                                            <span>Scale</span>
+                                        </Link>
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 {/* CARD 2: ENDORSEMENT */}
-                                <div className="w-1/3 h-full bg-[#0A0A0A] border border-white/10 rounded-2xl p-12 md:p-16 flex flex-col justify-between relative group overflow-hidden">
+                                <motion.div
+                                    style={{ opacity: card2Opacity }}
+                                    className="w-1/3 h-full bg-[#0A0A0A] border border-white/10 rounded-2xl p-12 md:p-16 flex flex-col justify-between relative group overflow-hidden"
+                                >
                                     {/* Parallax Image Mask */}
                                     <div className="absolute inset-0 z-0 overflow-hidden">
                                         <div className="absolute inset-0 bg-black/70 z-10" />
@@ -196,16 +214,19 @@ export const About = () => {
                                         <div className="text-7xl md:text-9xl font-black text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)] group-hover:[-webkit-text-stroke:1px_white] group-hover:text-white transition-all duration-500">
                                             <Counter to={12} duration={2.5} />
                                         </div>
-                                        {/* Hover Button */}
-                                        <div className="hidden lg:flex items-center gap-2 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-100 cursor-pointer">
-                                            <span className="font-mono text-sm tracking-widest uppercase text-white">Verify</span>
-                                            <span className="text-white">{`->`}</span>
-                                        </div>
+                                        {/* Redesigned Floating Button */}
+                                        <Link href="/about" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white rounded-full flex flex-col items-center justify-center text-black font-black uppercase tracking-widest text-sm opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-30 shadow-[0_0_50px_rgba(255,255,255,0.3)] hover:scale-110">
+                                            <span>See More</span>
+                                            <span>Awards</span>
+                                        </Link>
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 {/* CARD 3: MANIFESTO */}
-                                <div className="w-1/3 h-full bg-[#111111] border border-white/10 rounded-2xl p-12 md:p-16 flex flex-col justify-between relative group overflow-hidden">
+                                <motion.div
+                                    style={{ opacity: card3Opacity }}
+                                    className="w-1/3 h-full bg-[#111111] border border-white/10 rounded-2xl p-12 md:p-16 flex flex-col justify-between relative group overflow-hidden"
+                                >
                                     {/* Parallax Image Mask */}
                                     <div className="absolute inset-0 z-0 overflow-hidden">
                                         <div className="absolute inset-0 bg-black/80 z-10 group-hover:bg-black/60 transition-colors duration-700" />
@@ -228,13 +249,13 @@ export const About = () => {
                                         <div className="text-7xl md:text-9xl font-black text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] group-hover:[-webkit-text-stroke:0px] group-hover:text-[#00FF88] transition-all duration-500">
                                             ZERO.
                                         </div>
-                                        {/* Hover Button */}
-                                        <div className="hidden lg:flex items-center gap-2 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-300 cursor-pointer">
-                                            <span className="font-mono text-sm tracking-widest uppercase text-[#00FF88]">Read</span>
-                                            <span className="text-[#00FF88]">{`->`}</span>
-                                        </div>
+                                        {/* Redesigned Floating Button */}
+                                        <Link href="/about" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00FF88] rounded-full flex flex-col items-center justify-center text-black font-black uppercase tracking-widest text-sm opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-30 shadow-[0_0_50px_rgba(0,255,136,0.3)] hover:scale-110">
+                                            <span>See More</span>
+                                            <span>Manifesto</span>
+                                        </Link>
                                     </div>
-                                </div>
+                                </motion.div>
 
                             </motion.div>
                         </div>

@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { MagneticButton } from "../ui/MagneticButton";
 import { useRef } from "react";
+import Link from "next/link";
 
 const textReveal = {
     hidden: { y: "110%", opacity: 0 },
@@ -93,7 +94,7 @@ export const Hero = () => {
                     {/* Redesigned Luxury CTA Button */}
                     <div className="relative mt-8 group w-fit">
                         <MagneticButton>
-                            <button className="relative flex items-center justify-between gap-8 px-4 py-2 pl-8 rounded-full bg-[#050505]/40 backdrop-blur-2xl border border-white/10 text-white overflow-hidden transition-all duration-700 hover:border-transparent hover:bg-transparent w-[280px]">
+                            <Link href="/contact" className="relative flex items-center justify-between gap-8 px-4 py-2 pl-8 rounded-full bg-[#050505]/40 backdrop-blur-2xl border border-white/10 text-white overflow-hidden transition-all duration-700 hover:border-transparent hover:bg-transparent w-[280px]">
 
                                 {/* Background Sweep Effect */}
                                 <span className="absolute inset-0 bg-[#00FF88] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] z-0" />
@@ -116,7 +117,7 @@ export const Hero = () => {
                                     </div>
                                 </div>
 
-                            </button>
+                            </Link>
                         </MagneticButton>
                     </div>
                 </motion.div>

@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import gsap from "gsap";
+import Link from "next/link";
 
 const row1 = ["React", "Next.js", "TypeScript", "JavaScript", "C++", "C", "Java"];
 const row2 = ["Node.js", "Python", "GraphQL", "PostgreSQL", "Prisma", "Docker", "AWS"];
@@ -114,6 +115,21 @@ export const TechStack = () => {
                 <TechRow items={row2} direction={-1} speed={50} />
                 <TechRow items={row3} direction={1} speed={45} />
             </motion.div>
+
+            <div className="mt-24 md:mt-32 w-full flex items-center justify-center relative z-20">
+                <Link
+                    href="/services"
+                    className="group relative flex flex-col items-center justify-center w-48 h-48 bg-transparent border border-[#00FF88]/30 rounded-full overflow-hidden transition-all duration-500 hover:scale-110 hover:border-[#00FF88] shadow-[0_0_30px_rgba(0,255,136,0.1)] hover:shadow-[0_0_50px_rgba(0,255,136,0.3)] z-30"
+                >
+                    <div className="absolute inset-0 bg-[#00FF88] translate-y-[100%] rounded-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                    <span className="relative font-black text-sm tracking-widest uppercase text-white group-hover:text-black transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                        See More
+                    </span>
+                    <span className="relative font-black text-sm tracking-widest uppercase text-[#00FF88] group-hover:text-black transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                        Stack
+                    </span>
+                </Link>
+            </div>
 
         </section>
     );
