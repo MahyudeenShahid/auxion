@@ -179,10 +179,10 @@ export const About = () => {
                                         <div className="text-7xl md:text-9xl font-black text-white flex items-center gap-2 drop-shadow-2xl">
                                             <Counter to={40} duration={2} /><span className="text-[#00FF88] text-6xl group-hover:scale-110 origin-left transition-transform duration-500">+</span>
                                         </div>
-                                        {/* Redesigned Floating Button */}
-                                        <Link href="/about" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00FF88] rounded-full flex flex-col items-center justify-center text-black font-black uppercase tracking-widest text-sm opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-30 shadow-[0_0_50px_rgba(0,255,136,0.3)] hover:scale-110">
-                                            <span>See More</span>
-                                            <span>Scale</span>
+                                        {/* Hover Button */}
+                                        <Link href="/about" className="hidden lg:flex items-center gap-2 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-100 cursor-pointer">
+                                            <span className="font-mono text-sm tracking-widest uppercase text-white hover:text-[#00FF88] transition-colors">See More Scale</span>
+                                            <span className="text-[#00FF88]">{`->`}</span>
                                         </Link>
                                     </div>
                                 </motion.div>
@@ -214,10 +214,10 @@ export const About = () => {
                                         <div className="text-7xl md:text-9xl font-black text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)] group-hover:[-webkit-text-stroke:1px_white] group-hover:text-white transition-all duration-500">
                                             <Counter to={12} duration={2.5} />
                                         </div>
-                                        {/* Redesigned Floating Button */}
-                                        <Link href="/about" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white rounded-full flex flex-col items-center justify-center text-black font-black uppercase tracking-widest text-sm opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-30 shadow-[0_0_50px_rgba(255,255,255,0.3)] hover:scale-110">
-                                            <span>See More</span>
-                                            <span>Awards</span>
+                                        {/* Hover Button */}
+                                        <Link href="/about" className="hidden lg:flex items-center gap-2 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-100 cursor-pointer">
+                                            <span className="font-mono text-sm tracking-widest uppercase text-white hover:text-[#00FF88] transition-colors">See More Awards</span>
+                                            <span className="text-[#00FF88]">{`->`}</span>
                                         </Link>
                                     </div>
                                 </motion.div>
@@ -249,10 +249,10 @@ export const About = () => {
                                         <div className="text-7xl md:text-9xl font-black text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] group-hover:[-webkit-text-stroke:0px] group-hover:text-[#00FF88] transition-all duration-500">
                                             ZERO.
                                         </div>
-                                        {/* Redesigned Floating Button */}
-                                        <Link href="/about" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00FF88] rounded-full flex flex-col items-center justify-center text-black font-black uppercase tracking-widest text-sm opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-30 shadow-[0_0_50px_rgba(0,255,136,0.3)] hover:scale-110">
-                                            <span>See More</span>
-                                            <span>Manifesto</span>
+                                        {/* Hover Button */}
+                                        <Link href="/about" className="hidden lg:flex items-center gap-2 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-300 cursor-pointer">
+                                            <span className="font-mono text-sm tracking-widest uppercase text-white hover:text-[#00FF88] transition-colors">See More Manifesto</span>
+                                            <span className="text-[#00FF88]">{`->`}</span>
                                         </Link>
                                     </div>
                                 </motion.div>
