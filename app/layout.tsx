@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { FluidGradientBackground } from "@/components/ui/FluidGradientBackground";
+import { InitialLoader } from "@/components/ui/InitialLoader";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} antialiased selection:bg-white/10`}
       >
+        <InitialLoader />
         <FluidGradientBackground />
         <CustomCursor />
         <Navbar />
