@@ -160,16 +160,35 @@ export const Services = () => {
                     })}
                 </div>
 
-                {/* See All Services CTA */}
-                <div className="mt-16 flex justify-center">
-                    <Link href="/services" className="group relative inline-flex items-center gap-3 px-8 py-4 bg-transparent border border-white/20 hover:border-[#00FF88] rounded-full overflow-hidden transition-all duration-300">
-                        <div className="absolute inset-0 bg-[#00FF88]/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300" />
-                        <span className="relative font-mono text-sm tracking-widest uppercase text-white group-hover:text-[#00FF88] transition-colors duration-300">
-                            Explore All Services
+                {/* Tech/Engineering Styled See All Services Link */}
+                <div className="mt-24 w-full flex items-center justify-center relative z-20 pb-12">
+                    <Link
+                        href="/services"
+                        className="group relative inline-flex items-center justify-center px-10 py-5 font-mono text-xs md:text-sm tracking-[0.3em] uppercase text-white bg-[#020202] border border-white/10 overflow-hidden rounded-sm transition-all duration-500 hover:border-[#00FF88]/50"
+                    >
+                        {/* Scanning Laser Line */}
+                        <span className="absolute left-0 top-0 h-[200%] w-[1px] bg-[#00FF88] shadow-[0_0_15px_#00FF88] -translate-y-[150%] group-hover:translate-y-full transition-transform duration-[1.5s] ease-in-out opacity-0 group-hover:opacity-100" />
+
+                        {/* Corner Accents */}
+                        <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/30 group-hover:border-[#00FF88] transition-colors duration-500" />
+                        <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/30 group-hover:border-[#00FF88] transition-colors duration-500" />
+
+                        {/* Static Brackets */}
+                        <span className="text-[#00FF88] opacity-40 mr-4 group-hover:opacity-100 group-hover:-translate-x-2 transition-all duration-500">[</span>
+
+                        <span className="relative z-10 group-hover:text-[#00FF88] transition-colors duration-500 flex items-center gap-3">
+                            <span className="relative z-10">Explore Services</span>
+                            <div className="overflow-hidden relative flex items-center justify-center w-4 h-4">
+                                <svg className="absolute w-4 h-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </div>
                         </span>
-                        <svg className="relative w-4 h-4 text-white group-hover:text-[#00FF88] transition-all duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
+
+                        <span className="text-[#00FF88] opacity-40 ml-4 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500">]</span>
+
+                        {/* Background Glow Pulse */}
+                        <div className="absolute inset-0 bg-[#00FF88]/0 group-hover:bg-[#00FF88]/5 transition-colors duration-700 pointer-events-none" />
                     </Link>
                 </div>
             </div>

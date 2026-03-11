@@ -6,25 +6,18 @@ import Link from "next/link";
 
 // --- MICRO-INTERACTION COMPONENTS --- //
 
-const Counter = ({ from = 0, to, duration = 2 }: { from?: number, to: number, duration?: number }) => {
+import { useMotionValueEvent, MotionValue } from "framer-motion";
+
+const ScrollCounter = ({ value }: { value: MotionValue<number> }) => {
     const nodeRef = useRef<HTMLSpanElement>(null);
-    const inView = useInView(nodeRef, { once: true, margin: "0px", amount: "all" });
 
-    useEffect(() => {
-        if (!inView) return;
-        const controls = animate(from, to, {
-            duration,
-            ease: "easeOut",
-            onUpdate(value) {
-                if (nodeRef.current) {
-                    nodeRef.current.textContent = Math.round(value).toString();
-                }
-            }
-        });
-        return () => controls.stop();
-    }, [from, to, duration, inView]);
+    useMotionValueEvent(value, "change", (latest) => {
+        if (nodeRef.current) {
+            nodeRef.current.textContent = Math.round(latest).toString();
+        }
+    });
 
-    return <span ref={nodeRef}>{from}</span>;
+    return <span ref={nodeRef}>0</span>;
 };
 
 const Spotlight = () => {
@@ -45,7 +38,7 @@ const Spotlight = () => {
 
     return (
         <motion.div
-            className="pointer-events-none fixed top-0 left-0 w-[500px] h-[500px] bg-[#00FF88]/[0.03] rounded-full blur-[100px] z-0"
+            className="pointer-events-none fixed top-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(0,255,136,0.03)_0%,transparent_70%)] rounded-full z-0 will-change-transform"
             style={{ x: springX, y: springY, translateX: "-50%", translateY: "-50%" }}
         />
     );
@@ -76,6 +69,14 @@ export const About = () => {
     const card2Opacity = useTransform(scrollYProgress, [0.35, 0.45], [0, 1]);
     const card3Opacity = useTransform(scrollYProgress, [0.8, 0.9], [0, 1]);
 
+    // Scroll-linked counter values
+    // Card 1 starts at 0 and counts to 40 by the time x reaches 0.3
+    const counter1 = useTransform(scrollYProgress, [0, 0.3], [0, 40]);
+    // Card 2 activates around 0.45 and counts up to 12 by 0.7 
+    const counter2 = useTransform(scrollYProgress, [0.45, 0.7], [0, 12]);
+    // Card 3 activates around 0.8 and counts from 100 to 0 (ZERO)
+    const counter3 = useTransform(scrollYProgress, [0.8, 0.95], [100, 0]);
+
     // Background text slow parallax
     const bgY = useTransform(scrollYProgress, [0, 1], [0, 200]);
 
@@ -90,16 +91,16 @@ export const About = () => {
             {/* STICKY CONTAINER - Locks in place while scrolling through the 300vh section */}
             <div className="sticky top-0 h-screen flex items-center overflow-hidden">
 
-                {/* Cinematic Background Elements */}
+                {/* Cinematic Background Elements (Optimized) */}
                 <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
                     <motion.div
                         style={{ y: bgY }}
-                        className="relative w-full h-full flex flex-col items-center justify-center -space-y-12 md:-space-y-32 mix-blend-difference opacity-50"
+                        className="relative w-full h-full flex flex-col items-center justify-center -space-y-12 md:-space-y-32 opacity-10 will-change-transform"
                     >
-                        <h1 className="text-[15vw] font-black uppercase text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.05)] whitespace-nowrap">
+                        <h1 className="text-[15vw] font-black uppercase text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] whitespace-nowrap">
                             WE ARE
                         </h1>
-                        <h1 className="text-[15vw] font-black uppercase text-white/[0.02] whitespace-nowrap ml-24 md:ml-48">
+                        <h1 className="text-[15vw] font-black uppercase text-white/5 whitespace-nowrap ml-24 md:ml-48">
                             AUXION
                         </h1>
                     </motion.div>
@@ -164,7 +165,7 @@ export const About = () => {
                                         <img
                                             src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
                                             alt="Abstract Architecture"
-                                            className="w-full h-full object-cover saturate-0 opacity-40 group-hover:scale-110 transition-transform duration-[1.5s] ease-out"
+                                            className="w-full h-full object-cover saturate-0 opacity-40 group-hover:scale-110 transition-transform duration-[1.5s] ease-out will-change-transform"
                                         />
                                     </div>
 
@@ -177,7 +178,7 @@ export const About = () => {
                                     </div>
                                     <div className="relative z-10 flex items-end justify-between mt-auto">
                                         <div className="text-7xl md:text-9xl font-black text-white flex items-center gap-2 drop-shadow-2xl">
-                                            <Counter to={40} duration={2} /><span className="text-[#00FF88] text-6xl group-hover:scale-110 origin-left transition-transform duration-500">+</span>
+                                            <ScrollCounter value={counter1} /><span className="text-[#00FF88] text-6xl group-hover:scale-110 origin-left transition-transform duration-500">+</span>
                                         </div>
                                         {/* Hover Button */}
                                         <Link href="/about" className="hidden lg:flex items-center gap-2 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-100 cursor-pointer">
@@ -198,7 +199,7 @@ export const About = () => {
                                         <img
                                             src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop"
                                             alt="Abstract Render"
-                                            className="w-full h-full object-cover saturate-0 opacity-30 group-hover:scale-110 transition-transform duration-[1.5s] ease-out"
+                                            className="w-full h-full object-cover saturate-0 opacity-30 group-hover:scale-110 transition-transform duration-[1.5s] ease-out will-change-transform"
                                         />
                                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] mix-blend-overlay z-20 pointer-events-none" />
                                     </div>
@@ -212,7 +213,7 @@ export const About = () => {
                                     </div>
                                     <div className="relative z-10 flex items-end justify-between mt-auto">
                                         <div className="text-7xl md:text-9xl font-black text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)] group-hover:[-webkit-text-stroke:1px_white] group-hover:text-white transition-all duration-500">
-                                            <Counter to={12} duration={2.5} />
+                                            <ScrollCounter value={counter2} />
                                         </div>
                                         {/* Hover Button */}
                                         <Link href="/about" className="hidden lg:flex items-center gap-2 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-100 cursor-pointer">
@@ -233,9 +234,9 @@ export const About = () => {
                                         <img
                                             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop"
                                             alt="Modern Architecture"
-                                            className="w-full h-full object-cover saturate-0 opacity-40 group-hover:scale-110 transition-transform duration-[1.5s] ease-out"
+                                            className="w-full h-full object-cover saturate-0 opacity-40 group-hover:scale-110 transition-transform duration-[1.5s] ease-out will-change-transform"
                                         />
-                                        <div className="absolute right-0 bottom-0 w-64 h-64 bg-gradient-to-tl from-[#00FF88]/20 to-transparent rounded-tl-[100px] group-hover:scale-[2] transition-transform duration-[1.5s] ease-out z-20 pointer-events-none" />
+                                        <div className="absolute right-0 bottom-0 w-64 h-64 bg-gradient-to-tl from-[#00FF88]/20 to-transparent rounded-tl-[100px] group-hover:scale-[2] transition-transform duration-[1.5s] ease-out z-20 pointer-events-none will-change-transform" />
                                     </div>
 
                                     <div className="relative z-10">
@@ -246,8 +247,22 @@ export const About = () => {
                                         </p>
                                     </div>
                                     <div className="relative z-10 flex items-end justify-between mt-auto">
-                                        <div className="text-7xl md:text-9xl font-black text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] group-hover:[-webkit-text-stroke:0px] group-hover:text-[#00FF88] transition-all duration-500">
-                                            ZERO.
+                                        <div className="text-7xl md:text-9xl font-black text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] group-hover:[-webkit-text-stroke:0px] group-hover:text-[#00FF88] transition-all duration-500 w-full">
+                                            {/* Hide ZERO initially and show it when counter array 3 hits 0, but animate the numbers rolling down */}
+                                            <motion.span
+                                                animate={{ opacity: 0 }}
+                                                className="absolute inset-0 flex items-end"
+                                                style={{ opacity: useTransform(counter3, [100, 1, 0], [1, 1, 0]) }}
+                                            >
+                                                <ScrollCounter value={counter3} />
+                                            </motion.span>
+
+                                            <motion.span
+                                                style={{ opacity: useTransform(counter3, [100, 1, 0], [0, 0, 1]), y: useTransform(counter3, [100, 1, 0], [20, 20, 0]) }}
+                                                className="block transition-all duration-500"
+                                            >
+                                                ZERO.
+                                            </motion.span>
                                         </div>
                                         {/* Hover Button */}
                                         <Link href="/about" className="hidden lg:flex items-center gap-2 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-300 cursor-pointer">
