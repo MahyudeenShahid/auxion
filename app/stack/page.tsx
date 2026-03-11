@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, Fragment } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, Fragment, useRef } from "react";
+import { motion, AnimatePresence, useAnimation } from "framer-motion";
 
 // Main architecture stacks
 const stacks = [
@@ -116,10 +116,77 @@ const allTech = [
     
     { name: "Ahrefs", category: "SEO", textIcon: "Ah" },
     { name: "Semrush", category: "SEO", textIcon: "Se" },
-    { name: "Google Analytics", category: "SEO", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" }
+    { name: "Google Analytics", category: "SEO", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" },
+
+    { name: "HTML5", category: "Design", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+    { name: "CSS3", category: "Design", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+    { name: "Sass", category: "Design", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" },
+    { name: "Figma", category: "Design", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+    { name: "Three.js", category: "Animation", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg", invert: true },
+    { name: "GSAP", category: "Animation", textIcon: "GSAP" },
+    { name: "Framer Motion", category: "Animation", textIcon: "FM" },
+    { name: "Lenis", category: "Animation", textIcon: "Ln" }
 ];
 
-const categories = ["All", "Languages", "Frontend", "Backend", "Databases", "CMS", "DevOps", "Automation", "SEO"];
+const categories = ["All", "Languages", "Frontend", "Backend", "Databases", "CMS", "DevOps", "Automation", "SEO", "Design", "Animation"];
+
+const TechItem = ({ tech }: { tech: any }) => {
+    const controls = useAnimation();
+    
+    const handleReset = () => {
+        controls.start({ x: 0, y: 0, scale: 1, rotate: Math.random() * 10 - 5 });
+    };
+
+    return (
+        <motion.div
+            layout
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.4 }}
+            className="group flex flex-col items-center gap-3 relative z-0"
+            title={`${tech.name} - Click to reset position`}
+        >
+            <motion.div 
+                drag
+                dragConstraints={{ left: -500, right: 500, top: -500, bottom: 500 }}
+                dragElastic={0.4}
+                dragTransition={{ bounceStiffness: 200, bounceDamping: 20 }}
+                initial={{ rotate: Math.random() * 10 - 5 }}
+                animate={controls}
+                onClick={handleReset}
+                whileDrag={{ scale: 1.15, zIndex: 50, cursor: 'grabbing', rotate: 0 }}
+                whileHover={{ y: -5, scale: 1.05, rotate: 0 }}
+                className="w-full aspect-square bg-[#0A0A0A] border border-white/5 rounded-2xl flex items-center justify-center p-6 shadow-lg hover:border-[#00FF88]/50 hover:shadow-[0_10px_30px_rgba(0,255,136,0.1)] transition-colors duration-300 cursor-grab relative overflow-hidden"
+            >
+                {/* Subtle Hover Gradient */}
+                <div 
+                    className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] blur-[20px] z-0 pointer-events-none transition-all duration-500"
+                    style={{ backgroundColor: '#00FF88' }}
+                />
+
+                {/* @ts-ignore */}
+                {tech.icon ? (
+                    <img 
+                        // @ts-ignore
+                        src={tech.icon} 
+                        alt={tech.name} 
+                        // @ts-ignore
+                        className={`w-full h-full object-contain opacity-50 group-hover:opacity-100 transition-all duration-300 relative z-10 pointer-events-none ${tech.invert ? 'invert' : ''}`} 
+                    />
+                ) : (
+                    <span className="text-3xl font-black text-white/40 group-hover:text-white transition-colors duration-300 relative z-10 pointer-events-none">
+                        {/* @ts-ignore */}
+                        {tech.textIcon}
+                    </span>
+                )}
+            </motion.div>
+            <span onClick={handleReset} className="font-mono text-[10px] tracking-wider text-gray-500 uppercase group-hover:text-[#00FF88] transition-colors duration-300 text-center cursor-pointer">
+                {tech.name}
+            </span>
+        </motion.div>
+    );
+};
 
 export default function StackPage() {
     const [activeCategory, setActiveCategory] = useState("All");
@@ -226,8 +293,8 @@ export default function StackPage() {
                                             {stack.description}
                                         </p>
 
-                                        {/* Features Pill List */}
-                                        <div className="flex flex-wrap gap-3">
+                                        {/* Features Pill List & Read More */}
+                                        <div className="flex flex-wrap items-center gap-3">
                                             {stack.features.map((feature, i) => (
                                                 <motion.div 
                                                     key={i} 
@@ -245,6 +312,20 @@ export default function StackPage() {
                                                     <span className="text-xs font-medium text-white/80 group-hover/pill:text-white">{feature}</span>
                                                 </motion.div>
                                             ))}
+
+                                            <motion.a 
+                                                href={`/blog/${stack.id.toLowerCase()}`}
+                                                initial={{ opacity: 0, x: -10 }}
+                                                whileInView={{ opacity: 1, x: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 0.4, delay: 0.8 }}
+                                                className="ml-auto flex items-center gap-2 text-sm font-mono text-[#00FF88]/60 hover:text-[#00FF88] transition-colors duration-300 group/link mt-4 lg:mt-0"
+                                            >
+                                                <span>Read More</span>
+                                                <svg className="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                </svg>
+                                            </motion.a>
                                         </div>
                                     </div>
 
@@ -292,8 +373,8 @@ export default function StackPage() {
             </section>
 
             {/* TECHNOLOGY SANDBOX PLAYGROUND */}
-            <section className="py-32 px-6 border-t border-white/5 relative z-10 bg-[#050505]">
-                <div className="container mx-auto max-w-[1200px]">
+            <section className="py-32 px-6 border-t border-white/5 relative z-10 bg-[#050505] overflow-hidden">
+                <div className="container mx-auto max-w-[1200px] relative">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
                         <div>
                             <div className="flex items-center gap-4 mb-6">
@@ -323,36 +404,7 @@ export default function StackPage() {
                     <motion.div layout className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 md:gap-6">
                         <AnimatePresence>
                             {filteredTech.map((tech) => (
-                                <motion.div
-                                    layout
-                                    initial={{ opacity: 0, scale: 0.8 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.8 }}
-                                    transition={{ duration: 0.4 }}
-                                    key={tech.name}
-                                    className="group flex flex-col items-center gap-3"
-                                >
-                                    <div className="w-full aspect-square bg-[#0A0A0A] border border-white/5 rounded-2xl flex items-center justify-center p-6 shadow-lg hover:-translate-y-2 hover:border-[#00FF88]/50 hover:shadow-[0_10px_30px_rgba(0,255,136,0.1)] transition-all duration-300 cursor-pointer">
-                                        {/* @ts-ignore */}
-                                        {tech.icon ? (
-                                            <img 
-                                                // @ts-ignore
-                                                src={tech.icon} 
-                                                alt={tech.name} 
-                                                // @ts-ignore
-                                                className={`w-full h-full object-contain opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 ${tech.invert ? 'invert' : ''}`} 
-                                            />
-                                        ) : (
-                                            <span className="text-3xl font-black text-white/40 group-hover:text-white transition-colors duration-300">
-                                                {/* @ts-ignore */}
-                                                {tech.textIcon}
-                                            </span>
-                                        )}
-                                    </div>
-                                    <span className="font-mono text-[10px] tracking-wider text-gray-500 uppercase group-hover:text-[#00FF88] transition-colors duration-300 text-center">
-                                        {tech.name}
-                                    </span>
-                                </motion.div>
+                                <TechItem key={tech.name} tech={tech} />
                             ))}
                         </AnimatePresence>
                     </motion.div>
