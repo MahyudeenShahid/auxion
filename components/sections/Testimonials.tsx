@@ -144,19 +144,52 @@ export const Testimonials = () => {
                     </div>
                 </div>
 
-                {/* Call to Trust Link */}
-                <div className="mt-16 md:mt-24 lg:mt-32 w-full flex justify-center border-t border-white/10 pt-16 md:pt-24 relative z-20">
+                {/* Massive CTA Section */}
+                <div className="mt-24 md:mt-32 w-full border-t border-white/5 pt-16 md:pt-24 relative z-20">
                     <Link
                         href="/contact"
-                        className="group flex flex-col items-center gap-6"
+                        className="group block w-full relative overflow-hidden rounded-[2rem] bg-[#050505] border border-white/5 hover:border-[#00FF88]/30 transition-colors duration-700 shadow-2xl"
                     >
-                        <p className="font-mono text-sm tracking-widest uppercase text-gray-500 group-hover:text-white transition-colors duration-300">
-                            Join the Registry
-                        </p>
-                        <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white group-hover:text-[#00FF88] transition-colors duration-300 flex items-center gap-4">
-                            Start Dialogue
-                            <span className="text-[#00FF88] opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">{`->`}</span>
-                        </h2>
+                        {/* Hover Gradient Sweep */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#00FF88]/0 via-[#00FF88]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)]" />
+
+                        <div className="flex flex-col md:flex-row items-center justify-between p-12 md:p-24 relative z-10 w-full h-full">
+                            <div className="flex flex-col md:w-2/3">
+                                <span className="font-mono text-sm tracking-[0.3em] text-[#00FF88] uppercase mb-6 opacity-80 flex items-center gap-4">
+                                    <span className="w-8 h-[1px] bg-[#00FF88]" />
+                                    Next Steps Phase 01
+                                </span>
+                                <div className="flex flex-col">
+                                    <h2 className="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-none text-white group-hover:text-transparent group-hover:[-webkit-text-stroke:2px_#00FF88] transition-all duration-700">
+                                        START
+                                    </h2>
+                                    <h2 className="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-none text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.3)] group-hover:[-webkit-text-stroke:0px] group-hover:text-white transition-all duration-700 delay-100">
+                                        DIALOGUE.
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div className="mt-16 md:mt-0 md:w-1/3 flex justify-start md:justify-end w-full md:w-auto">
+                                <div className="w-32 h-32 md:w-48 md:h-48 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-[#00FF88] group-hover:border-[#00FF88] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] relative overflow-hidden group/btn shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                                    {/* Arrow icon */}
+                                    <span className="relative z-10 font-black text-white group-hover:text-black transition-colors duration-500 flex text-4xl md:text-6xl items-center overflow-hidden">
+                                        {/* Original Arrow sliding out */}
+                                        <span className="group-hover:translate-x-24 transition-transform duration-500 ease-in-out">
+                                            {`->`}
+                                        </span>
+                                        {/* New arrow sliding in */}
+                                        <span className="absolute -translate-x-24 group-hover:translate-x-0 transition-transform duration-500 ease-in-out delay-75">
+                                            {`->`}
+                                        </span>
+                                    </span>
+                                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.2] mix-blend-overlay z-0 pointer-events-none group-hover:opacity-0" />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Background structural lines */}
+                        <div className="absolute top-0 right-12 md:right-32 w-[1px] h-full bg-white/5 group-hover:bg-[#00FF88]/20 transition-colors duration-700" />
+                        <div className="absolute top-0 right-48 w-[1px] h-full bg-white/5 group-hover:bg-[#00FF88]/20 transition-colors duration-700 hidden lg:block" />
                     </Link>
                 </div>
 

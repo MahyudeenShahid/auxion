@@ -118,7 +118,7 @@ export const TechStack = () => {
 
             <div className="mt-24 md:mt-32 w-full flex items-center justify-center relative z-20">
                 <Link
-                    href="/services"
+                    href="/stack"
                     className="group relative flex flex-col items-center justify-center w-48 h-48 bg-transparent border border-[#00FF88]/30 rounded-full overflow-hidden transition-all duration-500 hover:scale-110 hover:border-[#00FF88] shadow-[0_0_30px_rgba(0,255,136,0.1)] hover:shadow-[0_0_50px_rgba(0,255,136,0.3)] z-30"
                 >
                     <div className="absolute inset-0 bg-[#00FF88] translate-y-[100%] rounded-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
